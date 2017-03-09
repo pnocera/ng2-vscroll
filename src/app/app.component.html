@@ -1,3 +1,28 @@
 <h1>
-  {{title}}
+  Simple list
 </h1>
+
+<div class="status">
+  Showing <span class="badge">{{indices?.start + 1}}</span> - <span class="badge">{{indices?.end}}</span> of <span class="badge">{{filteredList?.length}}</span>
+  <span>({{scrollItems?.length}} nodes)</span>
+</div>
+
+<virtual-scroll 
+  [items]="items" 
+  (change)="indices = $event" 
+  (update)="scrollItems = $event" 
+  style="height: 50vh; display: block">
+  <div *ngFor="let item of scrollItems">
+    <div>{{item.index}}</div>
+    <div>
+      <div>{{item.name}}</div>
+      <div>
+        <span>{{item.age}}/{{item.gender?.substr(0, 1).toUpperCase()}}</span>
+        <span>{{item.email}} | {{item.phone}}</span>
+      </div>
+      <div>{{item.address}}</div>
+    </div>
+    <hr>
+  </div>
+</virtual-scroll>
+
