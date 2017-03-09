@@ -6,4 +6,5 @@ export class ListItem {
     email?: string;
     phone?: string;
     address?: string;
+
 }

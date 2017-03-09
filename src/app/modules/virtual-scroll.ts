@@ -20,6 +20,11 @@ export interface ChangeEvent {
   end?: number;
 }
 
+export abstract class ObjectList<T> {
+  abstract indexOf(item:T) : number;
+  abstract length: number;
+}
+
 @Component({
   selector: 'virtual-scroll',
   template: `
@@ -48,10 +53,10 @@ export interface ChangeEvent {
     }
   `]
 })
-export class VirtualScrollComponent implements OnInit, OnDestroy, OnChanges {
+export class VirtualScrollComponent<T> implements OnInit, OnDestroy, OnChanges {
 
   @Input()
-  items: any[] = [];
+  items: ObjectList<T> = [];
 
   @Input()
   scrollbarWidth: number;
@@ -66,7 +71,7 @@ export class VirtualScrollComponent implements OnInit, OnDestroy, OnChanges {
   childHeight: number;
 
   @Output()
-  update: EventEmitter<any[]> = new EventEmitter<any[]>();
+  update: EventEmitter<ChangeEvent> = new EventEmitter<ChangeEvent>();
 
   @Output()
   change: EventEmitter<ChangeEvent> = new EventEmitter<ChangeEvent>();
@@ -187,7 +192,7 @@ export class VirtualScrollComponent implements OnInit, OnDestroy, OnChanges {
     if (start !== this.previousStart || end !== this.previousEnd) {
 
       // update the scroll list
-      this.update.emit(items.slice(start, end));
+      this.update.emit({ start, end });
 
        // emit 'start' event
       if (start !== this.previousStart && this.startupLoop === false) {
