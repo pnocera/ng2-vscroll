@@ -1,4 +1,8 @@
-# Vscroll
+# Angular2 Virtual Scrolling
+
+Angular2 Virtual scrolling derived from [rintoj/angular2-virtual-scroll](https://github.com/rintoj/angular2-virtual-scroll) 
+
+allows to get the data from a function instead of an array.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.0.0-beta.32.3.
 
